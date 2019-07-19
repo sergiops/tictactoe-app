@@ -1,24 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8od-Yd-CeC">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Main Menu-->
+        <scene sceneID="y2v-ae-bOy">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController title="Main Menu" id="8od-Yd-CeC" customClass="MenuController" customModule="tictactoe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="72x-hb-jdk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="AkI-Gy-Wnk">
+                                <rect key="frame" x="57" y="148" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="Sl6-JT-Ff0"/>
+                                    <constraint firstAttribute="width" secondItem="AkI-Gy-Wnk" secondAttribute="height" multiplier="1:1" id="acA-cY-QnV"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbb-sq-Ggk">
+                                <rect key="frame" x="107" y="573" width="200" height="50"/>
+                                <color key="backgroundColor" red="0.43137254899999999" green="0.2156862745" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="4c9-DD-ObI"/>
+                                    <constraint firstAttribute="height" constant="50" id="mqy-eS-uPk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Player vs CPU">
+                                    <color key="titleColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="L4p-5j-4vK" kind="show" id="wWR-Kg-jld"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c26-UO-Rhv">
+                                <rect key="frame" x="107" y="498" width="200" height="50"/>
+                                <color key="backgroundColor" red="0.43137254901960786" green="0.21568627450980393" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="io7-Nr-x1v"/>
+                                    <constraint firstAttribute="height" constant="50" id="vYP-pO-j9G"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Player vs Player">
+                                    <color key="titleColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="L4p-5j-4vK" kind="show" id="GAU-XI-gBd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.23529411764705882" green="0.45098039215686275" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="rbb-sq-Ggk" firstAttribute="centerX" secondItem="72x-hb-jdk" secondAttribute="centerX" id="PQW-8a-GfA"/>
+                            <constraint firstItem="AkI-Gy-Wnk" firstAttribute="centerX" secondItem="72x-hb-jdk" secondAttribute="centerX" id="YSn-yz-pif"/>
+                            <constraint firstItem="AkI-Gy-Wnk" firstAttribute="centerY" secondItem="72x-hb-jdk" secondAttribute="centerY" constant="-150" id="ZrI-LT-8M3"/>
+                            <constraint firstItem="c26-UO-Rhv" firstAttribute="centerX" secondItem="72x-hb-jdk" secondAttribute="centerX" id="aBO-1o-SOK"/>
+                            <constraint firstItem="rbb-sq-Ggk" firstAttribute="top" secondItem="c26-UO-Rhv" secondAttribute="bottom" constant="25" id="aJj-Sf-lRL"/>
+                            <constraint firstItem="c26-UO-Rhv" firstAttribute="top" secondItem="AkI-Gy-Wnk" secondAttribute="bottom" constant="50" id="mRe-eh-HBR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TCY-4G-nlO"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Bw-n4-g3l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-292" y="-188"/>
+        </scene>
+        <!--Game View-->
+        <scene sceneID="Jso-2e-WDd">
+            <objects>
+                <viewController title="Game View" id="L4p-5j-4vK" customClass="GameViewController" customModule="tictactoe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bIs-FW-CWX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game goes here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jlg-qA-Vcj">
+                                <rect key="frame" x="107" y="423" width="200" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="ldD-Xk-yOt"/>
+                                    <constraint firstAttribute="height" constant="50" id="wFA-F9-HB2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.23529411764705882" green="0.45098039215686275" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Jlg-qA-Vcj" firstAttribute="centerY" secondItem="bIs-FW-CWX" secondAttribute="centerY" id="0k2-BS-sqz"/>
+                            <constraint firstItem="Jlg-qA-Vcj" firstAttribute="centerX" secondItem="bIs-FW-CWX" secondAttribute="centerX" id="4cZ-uy-uUT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Aif-3I-bSI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UzU-G3-vlE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="717" y="-188"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="1024" height="1024"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="wWR-Kg-jld"/>
+    </inferredMetricsTieBreakers>
 </document>
