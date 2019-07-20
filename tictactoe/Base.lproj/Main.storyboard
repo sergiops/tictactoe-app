@@ -37,7 +37,7 @@
                                     <color key="titleColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="L4p-5j-4vK" kind="show" id="wWR-Kg-jld"/>
+                                    <action selector="cpuSelected:" destination="8od-Yd-CeC" eventType="touchUpInside" id="VdE-La-HEj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c26-UO-Rhv">
@@ -52,7 +52,7 @@
                                     <color key="titleColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="L4p-5j-4vK" kind="show" id="GAU-XI-gBd"/>
+                                    <action selector="pvpSelected:" destination="8od-Yd-CeC" eventType="touchUpInside" id="T2c-sY-HdI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -67,6 +67,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TCY-4G-nlO"/>
                     </view>
+                    <connections>
+                        <segue destination="L4p-5j-4vK" kind="show" identifier="toGameView" id="bPt-Vg-toR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Bw-n4-g3l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -98,6 +101,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Aif-3I-bSI"/>
                     </view>
+                    <connections>
+                        <outlet property="modeLabel" destination="Jlg-qA-Vcj" id="UJm-Tf-2Wj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzU-G3-vlE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -107,7 +113,4 @@
     <resources>
         <image name="logo" width="1024" height="1024"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="wWR-Kg-jld"/>
-    </inferredMetricsTieBreakers>
 </document>

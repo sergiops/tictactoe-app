@@ -9,11 +9,26 @@
 import UIKit
 
 class MenuController: UIViewController {
+    
+    var gameModeSelected:GameMode!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let game = segue.destination as? GameViewController
+        game?.mode = gameModeSelected
+    }
 
+    @IBAction func pvpSelected(_ sender: Any) {
+        gameModeSelected = GameMode.PVP
+        performSegue(withIdentifier: "toGameView", sender: self)
+    }
+    
+    @IBAction func cpuSelected(_ sender: Any) {
+        gameModeSelected = GameMode.CPU
+        performSegue(withIdentifier: "toGameView", sender: self)
+    }
 }
