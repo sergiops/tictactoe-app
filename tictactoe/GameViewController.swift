@@ -42,9 +42,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var image8: UIImageView!
     
     var mode:GameMode = GameMode.PVP
-    var currentPlayer:Player = Player.EX
+    var currentPlayer:Player!
     
-    var board: [Player] = []
+    var board: [Player]!
     
     @IBOutlet weak var modeLabel: UILabel!
     
@@ -60,9 +60,7 @@ class GameViewController: UIViewController {
         }
         
         // Initialize tictactoe board
-        for _ in 0...8 {
-            board.append(.NONE)
-        }
+        initGame()
     }
     
     @IBAction func handleImage0Tap(_ sender: UITapGestureRecognizer) {
@@ -97,8 +95,44 @@ class GameViewController: UIViewController {
         if board[index] == Player.NONE {
             img.image = UIImage(named: currentPlayer.rawValue)
             board[index] = currentPlayer
+            handlePlayerMove()
+        }
+    }
+    
+    func handlePlayerMove() {
+        if playerWon(currentPlayer, with: board) {
+            // Update scores
+            // Show victory message
+            // Show restart button
+            restartGame()
+        } else if boardFull(board) {
+            // Show tied message
+            // Show restart button
+            restartGame()
+        } else {
             currentPlayer = currentPlayer.opposite()
         }
+    }
+    
+    func initGame() {
+        currentPlayer = Player.EX
+        board = []
+        for _ in 0...8 {
+            board.append(.NONE)
+        }
+    }
+    
+    func restartGame() {
+        initGame()
+        image0.image = nil
+        image1.image = nil
+        image2.image = nil
+        image3.image = nil
+        image4.image = nil
+        image5.image = nil
+        image6.image = nil
+        image7.image = nil
+        image8.image = nil
     }
     
 }
