@@ -220,6 +220,33 @@
                                     <constraint firstAttribute="height" constant="150" id="dWX-Rn-vPh"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ceb-kg-Ebw">
+                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Outcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEv-S5-wj7">
+                                        <rect key="frame" x="42" y="81" width="216.5" height="38.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75z-aM-BZz">
+                                        <rect key="frame" x="114.5" y="144.5" width="71" height="30"/>
+                                        <state key="normal" title="Play Again"/>
+                                        <connections>
+                                            <action selector="onPlayAgain:" destination="L4p-5j-4vK" eventType="touchUpInside" id="EGv-3c-Yys"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="78L-31-chE"/>
+                                    <constraint firstItem="75z-aM-BZz" firstAttribute="centerX" secondItem="Ceb-kg-Ebw" secondAttribute="centerX" id="9mt-O5-LYK"/>
+                                    <constraint firstItem="75z-aM-BZz" firstAttribute="top" secondItem="vEv-S5-wj7" secondAttribute="bottom" constant="25" id="BuF-M4-wHz"/>
+                                    <constraint firstAttribute="width" constant="300" id="Qe2-sz-tNh"/>
+                                    <constraint firstItem="vEv-S5-wj7" firstAttribute="centerY" secondItem="Ceb-kg-Ebw" secondAttribute="centerY" constant="-50" id="Shk-t8-pUq"/>
+                                    <constraint firstItem="vEv-S5-wj7" firstAttribute="centerX" secondItem="Ceb-kg-Ebw" secondAttribute="centerX" id="VbN-9i-5li"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.23529411764705882" green="0.45098039215686275" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -228,12 +255,14 @@
                             <constraint firstItem="Aif-3I-bSI" firstAttribute="bottom" secondItem="Jlg-qA-Vcj" secondAttribute="bottom" constant="50" id="NPX-9l-OdF"/>
                             <constraint firstItem="zwO-5H-9E2" firstAttribute="top" secondItem="ggY-eA-wod" secondAttribute="bottom" constant="50" id="VjB-oc-CAT"/>
                             <constraint firstAttribute="trailing" secondItem="9a1-yS-snJ" secondAttribute="trailing" constant="50" id="VmG-a4-k4h"/>
+                            <constraint firstItem="Ceb-kg-Ebw" firstAttribute="centerY" secondItem="bIs-FW-CWX" secondAttribute="centerY" id="XCT-LN-4bg"/>
                             <constraint firstItem="Aif-3I-bSI" firstAttribute="trailing" secondItem="ggY-eA-wod" secondAttribute="trailing" constant="50" id="XZy-Ie-MIQ"/>
                             <constraint firstItem="zwO-5H-9E2" firstAttribute="centerY" secondItem="bIs-FW-CWX" secondAttribute="centerY" id="Z4s-T2-XqG"/>
                             <constraint firstItem="ggY-eA-wod" firstAttribute="leading" secondItem="Aif-3I-bSI" secondAttribute="leading" constant="50" id="hSe-ef-NWO"/>
                             <constraint firstItem="zwO-5H-9E2" firstAttribute="centerX" secondItem="bIs-FW-CWX" secondAttribute="centerX" id="lZj-vp-LGn"/>
                             <constraint firstItem="zwO-5H-9E2" firstAttribute="leading" secondItem="Aif-3I-bSI" secondAttribute="leading" constant="50" id="mph-8q-Cat"/>
                             <constraint firstItem="Aif-3I-bSI" firstAttribute="trailing" secondItem="zwO-5H-9E2" secondAttribute="trailing" constant="50" id="nN2-zd-fav"/>
+                            <constraint firstItem="Ceb-kg-Ebw" firstAttribute="centerX" secondItem="bIs-FW-CWX" secondAttribute="centerX" id="nm9-C5-dnc"/>
                             <constraint firstItem="9a1-yS-snJ" firstAttribute="leading" secondItem="Aif-3I-bSI" secondAttribute="leading" constant="50" id="qHe-a8-ZB0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Aif-3I-bSI"/>
@@ -241,6 +270,7 @@
                     <connections>
                         <outlet property="exScoreLabel" destination="T6A-Vg-tww" id="TLL-Ly-isE"/>
                         <outlet property="gameBoardCanvas" destination="zwO-5H-9E2" id="HTl-2l-QAD"/>
+                        <outlet property="gameResultLabel" destination="vEv-S5-wj7" id="TJ3-7Y-FOU"/>
                         <outlet property="image0" destination="lCj-9Q-Tsl" id="UP6-Ln-2GJ"/>
                         <outlet property="image1" destination="8zS-hl-j9I" id="YpT-pK-pVx"/>
                         <outlet property="image2" destination="LuI-4i-yee" id="k8a-3k-0Sy"/>
@@ -252,6 +282,7 @@
                         <outlet property="image8" destination="lr2-Dl-4Zl" id="D4q-Bc-XGK"/>
                         <outlet property="modeLabel" destination="Jlg-qA-Vcj" id="UJm-Tf-2Wj"/>
                         <outlet property="ohScoreLabel" destination="bRA-fH-nI1" id="Yj5-5I-bO8"/>
+                        <outlet property="resultView" destination="Ceb-kg-Ebw" id="UEt-yf-Z4m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzU-G3-vlE" userLabel="First Responder" sceneMemberID="firstResponder"/>

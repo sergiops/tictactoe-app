@@ -45,6 +45,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var exScoreLabel: UILabel!
     @IBOutlet weak var ohScoreLabel: UILabel!
     
+    @IBOutlet weak var resultView: UIView!
+    @IBOutlet weak var gameResultLabel: UILabel!
+    
     var mode:GameMode = GameMode.PVP
     var currentPlayer:Player = Player.EX
     var board: [Player]!
@@ -69,7 +72,7 @@ class GameViewController: UIViewController {
         
         // Calculate canvas values
         setupGameCanvas()
-        
+        resultView.isHidden = true
     }
     
     func newGame() {
@@ -139,6 +142,11 @@ class GameViewController: UIViewController {
         updateGameState(for: image8, index: 8)
     }
     
+    @IBAction func onPlayAgain(_ sender: UIButton) {
+        restartGame()
+        resultView.isHidden = true
+    }
+    
     func updateGameState(for img: UIImageView, index: Int) {
         if board[index] == Player.NONE {
             board[index] = currentPlayer
@@ -150,13 +158,11 @@ class GameViewController: UIViewController {
     func handleGameOver() {
         if playerWon(currentPlayer, with: board) {
             updateScores()
-            // Show victory message
-            // Show restart button
-            restartGame()
+            gameResultLabel.text = currentPlayer.rawValue + " Wins!"
+            resultView.isHidden = false
         } else if boardFull(board) {
-            // Show tied message
-            // Show restart button
-            restartGame()
+            gameResultLabel.text = "It's a tie!"
+            resultView.isHidden = false
         } else { // Game is not over
             currentPlayer = currentPlayer.opposite()
         }
