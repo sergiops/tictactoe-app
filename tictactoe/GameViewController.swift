@@ -31,6 +31,7 @@ enum Player: String {
 }
 
 class GameViewController: UIViewController {
+    @IBOutlet weak var gameBoardCanvas: GameBoardView!
     @IBOutlet weak var image0: UIImageView!
     @IBOutlet weak var image1: UIImageView!
     @IBOutlet weak var image2: UIImageView!
@@ -41,10 +42,14 @@ class GameViewController: UIViewController {
     @IBOutlet weak var image7: UIImageView!
     @IBOutlet weak var image8: UIImageView!
     
-    var mode:GameMode = GameMode.PVP
-    var currentPlayer:Player!
+    @IBOutlet weak var exScoreLabel: UILabel!
+    @IBOutlet weak var ohScoreLabel: UILabel!
     
+    var mode:GameMode = GameMode.PVP
+    var currentPlayer:Player = Player.EX
     var board: [Player]!
+    var exScore:Int = 0
+    var ohScore:Int = 0
     
     @IBOutlet weak var modeLabel: UILabel!
     
@@ -59,8 +64,51 @@ class GameViewController: UIViewController {
             modeLabel.text = "CPU Selected"
         }
         
-        // Initialize tictactoe board
-        initGame()
+        // Initialize tictactoe model
+        newGame()
+        
+        // Calculate canvas values
+        setupGameCanvas()
+        
+    }
+    
+    func newGame() {
+        currentPlayer = Player.EX
+        board = []
+        for _ in 0...8 {
+            board.append(.NONE)
+        }
+    }
+    
+    func restartGame() {
+        newGame()
+        image0.image = nil
+        image1.image = nil
+        image2.image = nil
+        image3.image = nil
+        image4.image = nil
+        image5.image = nil
+        image6.image = nil
+        image7.image = nil
+        image8.image = nil
+    }
+    
+    func setupGameCanvas() {
+        let frameSize = gameBoardCanvas.frame.size
+        let tileWidth = frameSize.width/3
+        let titleHeight = frameSize.width/3
+        gameBoardCanvas.lineV0 = Line(p0: CGPoint(x: tileWidth, y: 0),
+                                      p1: CGPoint(x: tileWidth, y: frameSize.height)
+        )
+        gameBoardCanvas.lineV1 = Line(p0: CGPoint(x: frameSize.width - tileWidth, y: 0),
+                                      p1: CGPoint(x: frameSize.width - tileWidth, y: frameSize.height)
+        )
+        gameBoardCanvas.lineH0 = Line(p0: CGPoint(x: 0, y: titleHeight),
+                                      p1: CGPoint(x: frameSize.width, y: titleHeight)
+        )
+        gameBoardCanvas.lineH1 = Line(p0: CGPoint(x: 0, y: frameSize.height - titleHeight),
+                                      p1: CGPoint(x: frameSize.width, y: frameSize.height - titleHeight)
+        )
     }
     
     @IBAction func handleImage0Tap(_ sender: UITapGestureRecognizer) {
@@ -93,15 +141,15 @@ class GameViewController: UIViewController {
     
     func updateGameState(for img: UIImageView, index: Int) {
         if board[index] == Player.NONE {
-            img.image = UIImage(named: currentPlayer.rawValue)
             board[index] = currentPlayer
-            handlePlayerMove()
+            img.image = UIImage(named: currentPlayer.rawValue)
+            handleGameOver()
         }
     }
-    
-    func handlePlayerMove() {
+        
+    func handleGameOver() {
         if playerWon(currentPlayer, with: board) {
-            // Update scores
+            updateScores()
             // Show victory message
             // Show restart button
             restartGame()
@@ -109,30 +157,22 @@ class GameViewController: UIViewController {
             // Show tied message
             // Show restart button
             restartGame()
-        } else {
+        } else { // Game is not over
             currentPlayer = currentPlayer.opposite()
         }
     }
     
-    func initGame() {
-        currentPlayer = Player.EX
-        board = []
-        for _ in 0...8 {
-            board.append(.NONE)
+    func updateScores() {
+        switch currentPlayer {
+        case .EX:
+            exScore += 1
+            exScoreLabel.text = String(exScore)
+        case .OH:
+            ohScore += 1
+            ohScoreLabel.text = String(ohScore)
+        default:
+            return
         }
-    }
-    
-    func restartGame() {
-        initGame()
-        image0.image = nil
-        image1.image = nil
-        image2.image = nil
-        image3.image = nil
-        image4.image = nil
-        image5.image = nil
-        image6.image = nil
-        image7.image = nil
-        image8.image = nil
     }
     
 }
