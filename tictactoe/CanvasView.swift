@@ -13,9 +13,10 @@ struct Line {
 }
 
 class CanvasView: UIView {
-    
-    let lineWidth: CGFloat = 10.0
+    let redColor: UIColor = #colorLiteral(red: 0.7843137255, green: 0.2078431373, blue: 0.137254902, alpha: 1)
+    let blueColor: UIColor = #colorLiteral(red: 0.137254902, green: 0.7137254902, blue: 0.7843137255, alpha: 1)
     let lineColor: UIColor = #colorLiteral(red: 0.3843137255, green: 0.3843137255, blue: 0.3843137255, alpha: 1)
+    let lineWidth: CGFloat = 10.0
     
     var lineV0: Line!
     var lineV1: Line!
@@ -39,12 +40,11 @@ class CanvasView: UIView {
         context?.addLine(to: lineH0.end)
         context?.move(to: lineH1.start)
         context?.addLine(to: lineH1.end)
-        
         context?.strokePath()
     }
     
     // Determine positions of tictactoe lines
-    func setup() {
+    public func setup() {
         let frameSize = self.frame.size
         self.cellWidth = (frameSize.width/3.0)
         self.cellWidth = (frameSize.height/3.0)
@@ -65,17 +65,33 @@ class CanvasView: UIView {
         )
     }
     
+    public func drawPlayerMark(with tapLocation: CGPoint, for player: Player) {
+        switch player {
+        case .EX:
+            print("drawing an ex")
+            drawAnimatedCircle(point: tapLocation,
+                               radius: (cellWidth/2)-(lineWidth*2),
+                               color: blueColor.cgColor)
+        case .OH:
+            print("drawing an oh")
+            drawAnimatedCircle(point: tapLocation,
+                               radius: (cellWidth/2)-(lineWidth*2),
+                               color: redColor.cgColor)
+        default:
+            print("no player specified")
+        }
+    }
+    
     // Draw a circle at the specified point
-    func drawAnimatedCircle(point: CGPoint, radius: Int, color: CGColor) {
+    private func drawAnimatedCircle(point: CGPoint, radius: CGFloat, color: CGColor) {
         let shapeLayer = CAShapeLayer()
-        let circlePath = UIBezierPath(arcCenter: point, radius: CGFloat(radius), startAngle: -(CGFloat.pi/2), endAngle: (3 * CGFloat.pi)/2, clockwise: true)
+        let circlePath = UIBezierPath(arcCenter: point, radius: radius, startAngle: -(CGFloat.pi/2), endAngle: (3 * CGFloat.pi)/2, clockwise: true)
         shapeLayer.path = circlePath.cgPath
         shapeLayer.strokeColor = color
         shapeLayer.lineWidth = 15
         shapeLayer.strokeEnd = 0
         shapeLayer.fillColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
         shapeLayer.lineCap = CAShapeLayerLineCap.round
-        self.layer.addSublayer(shapeLayer)
         
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = 1
@@ -83,6 +99,7 @@ class CanvasView: UIView {
         animation.fillMode = CAMediaTimingFillMode.forwards
         animation.isRemovedOnCompletion = false
         shapeLayer.add(animation, forKey: "circleAnimation")
+        self.layer.addSublayer(shapeLayer)
     }
     
 }

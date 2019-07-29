@@ -65,8 +65,10 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func onCanvasTap(_ sender: UITapGestureRecognizer) {
-        let p = sender.location(in: canvas)
-        canvas.drawAnimatedCircle(point: p, radius: 100, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1))
+        let location = sender.location(in: canvas)
+        canvas.drawPlayerMark(with: location, for: currentPlayer)
+        
+        currentPlayer = currentPlayer.opposite()
     }
     
     func newGame() {
