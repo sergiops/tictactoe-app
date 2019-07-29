@@ -31,22 +31,10 @@ enum Player: String {
 }
 
 class GameViewController: UIViewController {
-    @IBOutlet weak var gameBoardCanvas: GameBoardView!
-    @IBOutlet weak var image0: UIImageView!
-    @IBOutlet weak var image1: UIImageView!
-    @IBOutlet weak var image2: UIImageView!
-    @IBOutlet weak var image3: UIImageView!
-    @IBOutlet weak var image4: UIImageView!
-    @IBOutlet weak var image5: UIImageView!
-    @IBOutlet weak var image6: UIImageView!
-    @IBOutlet weak var image7: UIImageView!
-    @IBOutlet weak var image8: UIImageView!
+    @IBOutlet weak var canvas: CanvasView!
     
     @IBOutlet weak var exScoreLabel: UILabel!
     @IBOutlet weak var ohScoreLabel: UILabel!
-    
-    @IBOutlet weak var resultView: UIView!
-    @IBOutlet weak var gameResultLabel: UILabel!
     
     var mode:GameMode = GameMode.PVP
     var currentPlayer:Player = Player.EX
@@ -58,6 +46,8 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = #colorLiteral(red: 0.1882352941, green: 0.1882352941, blue: 0.1882352941, alpha: 1)
+        canvas.backgroundColor = #colorLiteral(red: 0.1882352941, green: 0.1882352941, blue: 0.1882352941, alpha: 1)
         
         // Determine the selected mode from the main menu
         switch mode {
@@ -71,8 +61,12 @@ class GameViewController: UIViewController {
         newGame()
         
         // Calculate canvas values
-        setupGameCanvas()
-        resultView.isHidden = true
+        canvas.setup()
+    }
+    
+    @IBAction func onCanvasTap(_ sender: UITapGestureRecognizer) {
+        let p = sender.location(in: canvas)
+        canvas.drawAnimatedCircle(point: p, radius: 100, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1))
     }
     
     func newGame() {
@@ -85,66 +79,10 @@ class GameViewController: UIViewController {
     
     func restartGame() {
         newGame()
-        image0.image = nil
-        image1.image = nil
-        image2.image = nil
-        image3.image = nil
-        image4.image = nil
-        image5.image = nil
-        image6.image = nil
-        image7.image = nil
-        image8.image = nil
-    }
-    
-    func setupGameCanvas() {
-        let frameSize = gameBoardCanvas.frame.size
-        let tileWidth = frameSize.width/3
-        let titleHeight = frameSize.width/3
-        gameBoardCanvas.lineV0 = Line(p0: CGPoint(x: tileWidth, y: 0),
-                                      p1: CGPoint(x: tileWidth, y: frameSize.height)
-        )
-        gameBoardCanvas.lineV1 = Line(p0: CGPoint(x: frameSize.width - tileWidth, y: 0),
-                                      p1: CGPoint(x: frameSize.width - tileWidth, y: frameSize.height)
-        )
-        gameBoardCanvas.lineH0 = Line(p0: CGPoint(x: 0, y: titleHeight),
-                                      p1: CGPoint(x: frameSize.width, y: titleHeight)
-        )
-        gameBoardCanvas.lineH1 = Line(p0: CGPoint(x: 0, y: frameSize.height - titleHeight),
-                                      p1: CGPoint(x: frameSize.width, y: frameSize.height - titleHeight)
-        )
-    }
-    
-    @IBAction func handleImage0Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image0, index: 0)
-    }
-    @IBAction func handleImage1Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image1, index: 1)
-    }
-    @IBAction func handleImage2Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image2, index: 2)
-    }
-    @IBAction func handleImage3Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image3, index: 3)
-    }
-    @IBAction func handleImage4Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image4, index: 4)
-    }
-    @IBAction func handleImage5Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image5, index: 5)
-    }
-    @IBAction func handleImage6Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image6, index: 6)
-    }
-    @IBAction func handleImage7Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image7, index: 7)
-    }
-    @IBAction func handleImage8Tap(_ sender: UITapGestureRecognizer) {
-        updateGameState(for: image8, index: 8)
     }
     
     @IBAction func onPlayAgain(_ sender: UIButton) {
         restartGame()
-        resultView.isHidden = true
     }
     
     func updateGameState(for img: UIImageView, index: Int) {
@@ -158,11 +96,8 @@ class GameViewController: UIViewController {
     func handleGameOver() {
         if playerWon(currentPlayer, with: board) {
             updateScores()
-            gameResultLabel.text = currentPlayer.rawValue + " Wins!"
-            resultView.isHidden = false
         } else if boardFull(board) {
-            gameResultLabel.text = "It's a tie!"
-            resultView.isHidden = false
+            
         } else { // Game is not over
             currentPlayer = currentPlayer.opposite()
         }
