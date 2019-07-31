@@ -68,12 +68,10 @@ class CanvasView: UIView {
     public func drawPlayerMark(with tapLocation: CGPoint, for player: Player) {
         switch player {
         case .EX:
-            print("drawing an ex")
             drawAnimatedCircle(point: tapLocation,
                                radius: (cellWidth/2)-(lineWidth*2),
                                color: blueColor.cgColor)
         case .OH:
-            print("drawing an oh")
             drawAnimatedCircle(point: tapLocation,
                                radius: (cellWidth/2)-(lineWidth*2),
                                color: redColor.cgColor)
