@@ -47,9 +47,8 @@ class CanvasView: UIView {
     public func setup() {
         let frameSize = self.frame.size
         self.cellWidth = (frameSize.width/3.0)
-        self.cellWidth = (frameSize.height/3.0)
+        self.cellHeight = (frameSize.height/3.0)
         self.cellOffset = CGFloat(lineWidth/6.0)
-        
         
         self.lineV0 = Line(start: CGPoint(x: cellWidth - cellOffset, y: 0),
                              end: CGPoint(x: cellWidth - cellOffset, y: frameSize.height)
@@ -65,11 +64,12 @@ class CanvasView: UIView {
         )
     }
     
+    // Given a tap location, draw the marking for the specified player.
     public func drawPlayerMark(with tapLocation: CGPoint, for player: Player) {
         switch player {
         case .EX:
-            drawAnimatedCircle(point: tapLocation,
-                               radius: (cellWidth/2)-(lineWidth*2),
+            drawAnimatedCross(point: tapLocation,
+                               size: ((cellWidth/2)-(lineWidth*2))/sqrt(2),
                                color: blueColor.cgColor)
         case .OH:
             drawAnimatedCircle(point: tapLocation,
@@ -82,22 +82,48 @@ class CanvasView: UIView {
     
     // Draw a circle at the specified point
     private func drawAnimatedCircle(point: CGPoint, radius: CGFloat, color: CGColor) {
+        let circlePath = UIBezierPath(arcCenter: point,
+                                      radius: radius,
+                                      startAngle: -(CGFloat.pi/2),
+                                      endAngle: (3 * CGFloat.pi)/2,
+                                      clockwise: true)
+        
+        let shapeLayer = getShapeLayer(for: circlePath.cgPath, with: color)
+        shapeLayer.add(getStrokeAnimation(), forKey: "cirlceMarking")
+        self.layer.addSublayer(shapeLayer)
+    }
+    
+    // Draw a cross at the specified point
+    private func drawAnimatedCross(point: CGPoint, size: CGFloat, color: CGColor) {
+        let crossPath = UIBezierPath()
+        crossPath.move(to: CGPoint(x: point.x-size, y: point.y-size))
+        crossPath.addLine(to: CGPoint(x: point.x+size, y: point.y+size))
+        crossPath.move(to: CGPoint(x: point.x+size, y: point.y-size))
+        crossPath.addLine(to: CGPoint(x: point.x-size, y: point.y+size))
+        
+        let shapeLayer = getShapeLayer(for: crossPath.cgPath, with: color)
+        shapeLayer.add(getStrokeAnimation(), forKey: "crossMarking")
+        self.layer.addSublayer(shapeLayer)
+    }
+    
+    private func getShapeLayer(for shapePath: CGPath,
+                                 with color: CGColor) -> CAShapeLayer {
         let shapeLayer = CAShapeLayer()
-        let circlePath = UIBezierPath(arcCenter: point, radius: radius, startAngle: -(CGFloat.pi/2), endAngle: (3 * CGFloat.pi)/2, clockwise: true)
-        shapeLayer.path = circlePath.cgPath
+        shapeLayer.path = shapePath
         shapeLayer.strokeColor = color
         shapeLayer.lineWidth = 15
-        shapeLayer.strokeEnd = 0
         shapeLayer.fillColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
         shapeLayer.lineCap = CAShapeLayerLineCap.round
-        
+        shapeLayer.strokeEnd = 0
+        return shapeLayer
+    }
+    
+    private func getStrokeAnimation() -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = 1
         animation.duration = 0.25
         animation.fillMode = CAMediaTimingFillMode.forwards
         animation.isRemovedOnCompletion = false
-        shapeLayer.add(animation, forKey: "circleAnimation")
-        self.layer.addSublayer(shapeLayer)
+        return animation
     }
-    
 }
