@@ -29,6 +29,7 @@ class CanvasView: UIView {
     
     // Draw the tic-tac-toe lines onto the canvas
     override func draw(_ rect: CGRect) {
+        getLinePositions()
         let context = UIGraphicsGetCurrentContext()
         context?.setLineWidth(lineWidth)
         context?.setStrokeColor(lineColor.cgColor)
@@ -41,6 +42,28 @@ class CanvasView: UIView {
         context?.move(to: lineH1.start)
         context?.addLine(to: lineH1.end)
         context?.strokePath()
+    }
+    
+    // Callculate the position of the tictactoe lines.
+    // Get the frame size and calculate cell size.
+    private func getLinePositions() {
+        let frameSize = self.frame.size
+        self.cellWidth = (frameSize.width/3.0)
+        self.cellHeight = (frameSize.height/3.0)
+        self.cellOffset = CGFloat(lineWidth/6.0)
+        
+        self.lineV0 = Line(start: CGPoint(x: cellWidth - cellOffset, y: 0),
+                           end: CGPoint(x: cellWidth - cellOffset, y: frameSize.height)
+        )
+        self.lineV1 = Line(start: CGPoint(x: (2.0 * cellWidth) + cellOffset, y: 0),
+                           end: CGPoint(x: (2.0 * cellWidth) + cellOffset, y: frameSize.height)
+        )
+        self.lineH0 = Line(start: CGPoint(x: 0, y: cellWidth - cellOffset),
+                           end: CGPoint(x: frameSize.width, y: cellWidth - cellOffset)
+        )
+        self.lineH1 = Line(start: CGPoint(x: 0, y: (2.0 * cellWidth) + cellOffset),
+                           end: CGPoint(x: frameSize.width, y: (2.0 * cellWidth) + cellOffset)
+        )
     }
     
     // Determine positions of tictactoe lines

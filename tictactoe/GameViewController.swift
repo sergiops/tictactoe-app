@@ -59,9 +59,6 @@ class GameViewController: UIViewController {
         
         // Initialize tictactoe model
         newGame()
-        
-        // Calculate canvas values
-        canvas.setup()
     }
     
     @IBAction func onCanvasTap(_ sender: UITapGestureRecognizer) {
