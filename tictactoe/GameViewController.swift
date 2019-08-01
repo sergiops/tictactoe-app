@@ -62,41 +62,35 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func onCanvasTap(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: canvas)
-        canvas.drawPlayerMark(with: location, for: currentPlayer)
-        
-        currentPlayer = currentPlayer.opposite()
+        let location: CGPoint = sender.location(in: canvas)
+        let cell: Int = canvas.getCellNumber(tap: location)
+        handlePlayerMove(for: cell)
     }
     
     func newGame() {
         currentPlayer = Player.EX
-        board = []
-        for _ in 0...8 {
-            board.append(.NONE)
-        }
+        board = Array(repeating: Player.NONE, count: 9)
     }
-    
-    func restartGame() {
+        
+    @IBAction func onPlayAgain(_ sender: UIButton) {
         newGame()
     }
     
-    @IBAction func onPlayAgain(_ sender: UIButton) {
-        restartGame()
-    }
-    
-    func updateGameState(for img: UIImageView, index: Int) {
-        if board[index] == Player.NONE {
-            board[index] = currentPlayer
-            img.image = UIImage(named: currentPlayer.rawValue)
-            handleGameOver()
+    func handlePlayerMove(for cell: Int) {
+        if board[cell] == Player.NONE {
+            board[cell] = currentPlayer
+            canvas.drawPlayerMark(at: cell, for: currentPlayer)
+            handleMoveOutcome()
         }
     }
         
-    func handleGameOver() {
+    func handleMoveOutcome() {
         if playerWon(currentPlayer, with: board) {
             updateScores()
+            print(currentPlayer.rawValue, "won")
         } else if boardFull(board) {
-            
+            // reset the board and the game state
+            print("the board is full")
         } else { // Game is not over
             currentPlayer = currentPlayer.opposite()
         }
