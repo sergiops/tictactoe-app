@@ -70,6 +70,7 @@ class GameViewController: UIViewController {
     func newGame() {
         currentPlayer = Player.EX
         board = Array(repeating: Player.NONE, count: 9)
+        canvas.clear()
     }
         
     @IBAction func onPlayAgain(_ sender: UIButton) {
@@ -87,10 +88,9 @@ class GameViewController: UIViewController {
     func handleMoveOutcome() {
         if playerWon(currentPlayer, with: board) {
             updateScores()
-            print(currentPlayer.rawValue, "won")
+            newGame()
         } else if boardFull(board) {
-            // reset the board and the game state
-            print("the board is full")
+            newGame()
         } else { // Game is not over
             currentPlayer = currentPlayer.opposite()
         }

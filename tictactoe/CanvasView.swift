@@ -15,7 +15,7 @@ struct Line {
 class CanvasView: UIView {
     let redColor: UIColor = #colorLiteral(red: 0.7843137255, green: 0.2078431373, blue: 0.137254902, alpha: 1)
     let blueColor: UIColor = #colorLiteral(red: 0.137254902, green: 0.7137254902, blue: 0.7843137255, alpha: 1)
-    let lineColor: UIColor = #colorLiteral(red: 0.3843137255, green: 0.3843137255, blue: 0.3843137255, alpha: 1)
+    let lineColor: UIColor = #colorLiteral(red: 0.3215686275, green: 0.3215686275, blue: 0.3215686275, alpha: 1)
     let lineWidth: CGFloat = 10.0
     
     var lineV0: Line!
@@ -52,7 +52,7 @@ class CanvasView: UIView {
                                radius: (cellWidth/2)-(lineWidth*2),
                                color: redColor.cgColor)
         default:
-            print("no player specified")
+            return
         }
     }
     
@@ -77,6 +77,10 @@ class CanvasView: UIView {
         } else {
             return 8
         }
+    }
+    
+    public func clear() {
+        self.layer.sublayers?.removeAll()
     }
     
     //////////////////////////////////////////////
@@ -135,7 +139,7 @@ class CanvasView: UIView {
         context?.strokePath()
     }
     
-    // Draw a cross at the specified point
+    // Draw a cross at the specified point.
     private func drawAnimatedCross(at point: CGPoint, size: CGFloat, color: CGColor) {
         let crossPath = UIBezierPath()
         crossPath.move(to: CGPoint(x: point.x-size, y: point.y-size))
@@ -148,7 +152,7 @@ class CanvasView: UIView {
         self.layer.addSublayer(shapeLayer)
     }
     
-    // Draw a circle at the specified point
+    // Draw a circle at the specified point.
     private func drawAnimatedCircle(at point: CGPoint, radius: CGFloat, color: CGColor) {
         let circlePath = UIBezierPath(arcCenter: point,
                                       radius: radius,
@@ -161,6 +165,7 @@ class CanvasView: UIView {
         self.layer.addSublayer(shapeLayer)
     }
     
+    // Return a shape layer with the shape path and styling.
     private func getShapeLayer(for shapePath: CGPath,
                                  with color: CGColor) -> CAShapeLayer {
         let shapeLayer = CAShapeLayer()
@@ -173,6 +178,7 @@ class CanvasView: UIView {
         return shapeLayer
     }
     
+    // Create the stroke animation for the shape and return it.
     private func getStrokeAnimation() -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = 1
