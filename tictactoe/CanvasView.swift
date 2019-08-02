@@ -124,19 +124,35 @@ class CanvasView: UIView {
         )
     }
     
+    // Draw the tictacte board using the calculated lines.
     private func drawCellLines() {
-        let context = UIGraphicsGetCurrentContext()
-        context?.setLineWidth(lineWidth)
-        context?.setStrokeColor(lineColor.cgColor)
-        context?.move(to: lineV0.start)
-        context?.addLine(to: lineV0.end)
-        context?.move(to: lineV1.start)
-        context?.addLine(to: lineV1.end)
-        context?.move(to: lineH0.start)
-        context?.addLine(to: lineH0.end)
-        context?.move(to: lineH1.start)
-        context?.addLine(to: lineH1.end)
-        context?.strokePath()
+        let lineLayer = CALayer()
+        let linePath1 = UIBezierPath()
+        let linePath2 = UIBezierPath()
+        
+        linePath1.move(to: lineV0.start)
+        linePath1.addLine(to: lineV0.end)
+        linePath2.move(to: lineV1.start)
+        linePath2.addLine(to: lineV1.end)
+        linePath1.move(to: lineH0.start)
+        linePath1.addLine(to: lineH0.end)
+        linePath2.move(to: lineH1.start)
+        linePath2.addLine(to: lineH1.end)
+        
+        let horizontalLayer = getShapeLayer(for: linePath1.cgPath,
+                                            with: lineColor.cgColor,
+                                            lineWidth: self.lineWidth)
+        let verticalLayer = getShapeLayer(for: linePath2.cgPath,
+                                          with: lineColor.cgColor,
+                                          lineWidth: self.lineWidth)
+        
+        let animation = getStrokeAnimation(1.0)
+        horizontalLayer.add(animation, forKey: "horizontalLineAnim")
+        verticalLayer.add(animation, forKey: "verticalLineAnim")
+        
+        lineLayer.addSublayer(horizontalLayer)
+        lineLayer.addSublayer(verticalLayer)
+        self.layer.addSublayer(lineLayer)
     }
     
     // Draw a cross at the specified point.
@@ -147,8 +163,10 @@ class CanvasView: UIView {
         crossPath.move(to: CGPoint(x: point.x+size, y: point.y-size))
         crossPath.addLine(to: CGPoint(x: point.x-size, y: point.y+size))
         
-        let shapeLayer = getShapeLayer(for: crossPath.cgPath, with: color)
-        shapeLayer.add(getStrokeAnimation(), forKey: "crossMarking")
+        let shapeLayer = getShapeLayer(for: crossPath.cgPath,
+                                       with: color,
+                                       lineWidth: CGFloat(15.0))
+        shapeLayer.add(getStrokeAnimation(0.25), forKey: "crossMarking")
         self.layer.addSublayer(shapeLayer)
     }
     
@@ -160,18 +178,21 @@ class CanvasView: UIView {
                                       endAngle: (3 * CGFloat.pi)/2,
                                       clockwise: true)
         
-        let shapeLayer = getShapeLayer(for: circlePath.cgPath, with: color)
-        shapeLayer.add(getStrokeAnimation(), forKey: "cirlceMarking")
+        let shapeLayer = getShapeLayer(for: circlePath.cgPath,
+                                       with: color,
+                                       lineWidth: CGFloat(15.0))
+        shapeLayer.add(getStrokeAnimation(0.25), forKey: "cirlceMarking")
         self.layer.addSublayer(shapeLayer)
     }
     
     // Return a shape layer with the shape path and styling.
     private func getShapeLayer(for shapePath: CGPath,
-                                 with color: CGColor) -> CAShapeLayer {
+                                 with color: CGColor,
+                                 lineWidth: CGFloat) -> CAShapeLayer {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = shapePath
         shapeLayer.strokeColor = color
-        shapeLayer.lineWidth = 15
+        shapeLayer.lineWidth = lineWidth
         shapeLayer.fillColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.strokeEnd = 0
@@ -179,10 +200,10 @@ class CanvasView: UIView {
     }
     
     // Create the stroke animation for the shape and return it.
-    private func getStrokeAnimation() -> CABasicAnimation {
+    private func getStrokeAnimation(_ dur: Double) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = 1
-        animation.duration = 0.25
+        animation.duration = dur
         animation.fillMode = CAMediaTimingFillMode.forwards
         animation.isRemovedOnCompletion = false
         return animation
