@@ -58,7 +58,8 @@ class GameViewController: UIViewController {
         }
         
         // Initialize tictactoe model
-        newGame()
+        currentPlayer = Player.EX
+        board = Array(repeating: Player.NONE, count: 9)
     }
     
     @IBAction func onCanvasTap(_ sender: UITapGestureRecognizer) {
@@ -71,6 +72,7 @@ class GameViewController: UIViewController {
         currentPlayer = Player.EX
         board = Array(repeating: Player.NONE, count: 9)
         canvas.clear()
+        canvas.drawCellLines()
     }
         
     @IBAction func onPlayAgain(_ sender: UIButton) {

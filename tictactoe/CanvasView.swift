@@ -17,6 +17,8 @@ class CanvasView: UIView {
     let blueColor: UIColor = #colorLiteral(red: 0.137254902, green: 0.7137254902, blue: 0.7843137255, alpha: 1)
     let lineColor: UIColor = #colorLiteral(red: 0.3215686275, green: 0.3215686275, blue: 0.3215686275, alpha: 1)
     let lineWidth: CGFloat = 10.0
+    let lineAminDuration: Double = 0.85
+    let markAnimDuration: Double = 0.25
     
     var lineV0: Line!
     var lineV1: Line!
@@ -28,7 +30,7 @@ class CanvasView: UIView {
     var cellHeight:CGFloat!
     var cellOffset:CGFloat!
     
-    // Setup and draw the tictactoe board.
+    // Setup and draw the tictactoe board for the first time.
     override func draw(_ rect: CGRect) {
         let frameSize = self.frame.size
         self.cellWidth = (frameSize.width/3.0)
@@ -54,6 +56,37 @@ class CanvasView: UIView {
         default:
             return
         }
+    }
+    
+    // Draw the tictacte board using the calculated lines.
+    public func drawCellLines() {
+        let lineLayer = CALayer()
+        let linePath1 = UIBezierPath()
+        let linePath2 = UIBezierPath()
+        
+        linePath1.move(to: lineV0.start)
+        linePath1.addLine(to: lineV0.end)
+        linePath2.move(to: lineV1.start)
+        linePath2.addLine(to: lineV1.end)
+        linePath1.move(to: lineH0.start)
+        linePath1.addLine(to: lineH0.end)
+        linePath2.move(to: lineH1.start)
+        linePath2.addLine(to: lineH1.end)
+        
+        let horizontalLayer = getShapeLayer(for: linePath1.cgPath,
+                                            with: lineColor.cgColor,
+                                            lineWidth: self.lineWidth)
+        let verticalLayer = getShapeLayer(for: linePath2.cgPath,
+                                          with: lineColor.cgColor,
+                                          lineWidth: self.lineWidth)
+        
+        let animation = getStrokeAnimation(markAnimDuration)
+        horizontalLayer.add(animation, forKey: "horizontalLineAnim")
+        verticalLayer.add(animation, forKey: "verticalLineAnim")
+        
+        lineLayer.addSublayer(horizontalLayer)
+        lineLayer.addSublayer(verticalLayer)
+        self.layer.addSublayer(lineLayer)
     }
     
     // Determine which cell was tapped based on the location given.
@@ -124,37 +157,6 @@ class CanvasView: UIView {
         )
     }
     
-    // Draw the tictacte board using the calculated lines.
-    private func drawCellLines() {
-        let lineLayer = CALayer()
-        let linePath1 = UIBezierPath()
-        let linePath2 = UIBezierPath()
-        
-        linePath1.move(to: lineV0.start)
-        linePath1.addLine(to: lineV0.end)
-        linePath2.move(to: lineV1.start)
-        linePath2.addLine(to: lineV1.end)
-        linePath1.move(to: lineH0.start)
-        linePath1.addLine(to: lineH0.end)
-        linePath2.move(to: lineH1.start)
-        linePath2.addLine(to: lineH1.end)
-        
-        let horizontalLayer = getShapeLayer(for: linePath1.cgPath,
-                                            with: lineColor.cgColor,
-                                            lineWidth: self.lineWidth)
-        let verticalLayer = getShapeLayer(for: linePath2.cgPath,
-                                          with: lineColor.cgColor,
-                                          lineWidth: self.lineWidth)
-        
-        let animation = getStrokeAnimation(1.0)
-        horizontalLayer.add(animation, forKey: "horizontalLineAnim")
-        verticalLayer.add(animation, forKey: "verticalLineAnim")
-        
-        lineLayer.addSublayer(horizontalLayer)
-        lineLayer.addSublayer(verticalLayer)
-        self.layer.addSublayer(lineLayer)
-    }
-    
     // Draw a cross at the specified point.
     private func drawAnimatedCross(at point: CGPoint, size: CGFloat, color: CGColor) {
         let crossPath = UIBezierPath()
@@ -166,7 +168,7 @@ class CanvasView: UIView {
         let shapeLayer = getShapeLayer(for: crossPath.cgPath,
                                        with: color,
                                        lineWidth: CGFloat(15.0))
-        shapeLayer.add(getStrokeAnimation(0.25), forKey: "crossMarking")
+        shapeLayer.add(getStrokeAnimation(markAnimDuration), forKey: "crossMarking")
         self.layer.addSublayer(shapeLayer)
     }
     
@@ -181,7 +183,7 @@ class CanvasView: UIView {
         let shapeLayer = getShapeLayer(for: circlePath.cgPath,
                                        with: color,
                                        lineWidth: CGFloat(15.0))
-        shapeLayer.add(getStrokeAnimation(0.25), forKey: "cirlceMarking")
+        shapeLayer.add(getStrokeAnimation(markAnimDuration), forKey: "cirlceMarking")
         self.layer.addSublayer(shapeLayer)
     }
     
