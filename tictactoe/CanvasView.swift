@@ -17,7 +17,7 @@ class CanvasView: UIView {
     let blueColor: UIColor = #colorLiteral(red: 0.137254902, green: 0.7137254902, blue: 0.7843137255, alpha: 1)
     let lineColor: UIColor = #colorLiteral(red: 0.3215686275, green: 0.3215686275, blue: 0.3215686275, alpha: 1)
     let lineWidth: CGFloat = 10.0
-    let lineAminDuration: Double = 0.85
+    let lineAnimDuration: Double = 0.75
     let markAnimDuration: Double = 0.25
     
     var lineV0: Line!
@@ -58,9 +58,8 @@ class CanvasView: UIView {
         }
     }
     
-    // Draw the tictacte board using the calculated lines.
+    // Draw the tictacte board, with animation, using the calculated lines.
     public func drawCellLines() {
-        let lineLayer = CALayer()
         let linePath1 = UIBezierPath()
         let linePath2 = UIBezierPath()
         
@@ -73,20 +72,19 @@ class CanvasView: UIView {
         linePath2.move(to: lineH1.start)
         linePath2.addLine(to: lineH1.end)
         
-        let horizontalLayer = getShapeLayer(for: linePath1.cgPath,
+        let pairLayer1 = getShapeLayer(for: linePath1.cgPath,
                                             with: lineColor.cgColor,
                                             lineWidth: self.lineWidth)
-        let verticalLayer = getShapeLayer(for: linePath2.cgPath,
+        let pairLayer2 = getShapeLayer(for: linePath2.cgPath,
                                           with: lineColor.cgColor,
                                           lineWidth: self.lineWidth)
         
-        let animation = getStrokeAnimation(markAnimDuration)
-        horizontalLayer.add(animation, forKey: "horizontalLineAnim")
-        verticalLayer.add(animation, forKey: "verticalLineAnim")
+        let animation = getStrokeAnimation(lineAnimDuration)
+        pairLayer1.add(animation, forKey: "horizontalLineAnim")
+        pairLayer2.add(animation, forKey: "verticalLineAnim")
         
-        lineLayer.addSublayer(horizontalLayer)
-        lineLayer.addSublayer(verticalLayer)
-        self.layer.addSublayer(lineLayer)
+        self.layer.addSublayer(pairLayer1)
+        self.layer.addSublayer(pairLayer2)
     }
     
     // Determine which cell was tapped based on the location given.
@@ -141,7 +139,6 @@ class CanvasView: UIView {
     }
     
     // Callculate the position of the tictactoe lines.
-    // Get the frame size and calculate cell size.
     private func initLinePositions(with frameSize: CGSize) {
         self.lineV0 = Line(start: CGPoint(x: cellWidth - cellOffset, y: 0),
                            end: CGPoint(x: cellWidth - cellOffset, y: frameSize.height)

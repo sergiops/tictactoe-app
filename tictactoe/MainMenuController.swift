@@ -33,4 +33,3 @@ class MainMenuController: UIViewController {
         performSegue(withIdentifier: "toGameView", sender: self)
     }
 }
-
