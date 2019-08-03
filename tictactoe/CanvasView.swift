@@ -13,9 +13,6 @@ struct Line {
 }
 
 class CanvasView: UIView {
-    let redColor: UIColor = #colorLiteral(red: 0.7843137255, green: 0.2078431373, blue: 0.137254902, alpha: 1)
-    let blueColor: UIColor = #colorLiteral(red: 0.137254902, green: 0.7137254902, blue: 0.7843137255, alpha: 1)
-    let lineColor: UIColor = #colorLiteral(red: 0.3215686275, green: 0.3215686275, blue: 0.3215686275, alpha: 1)
     let lineWidth: CGFloat = 10.0
     let lineAnimDuration: Double = 0.75
     let markAnimDuration: Double = 0.25
@@ -72,10 +69,10 @@ class CanvasView: UIView {
         linePath2.move(to: lineH1.start)
         linePath2.addLine(to: lineH1.end)
         
-        let pairLayer1 = getShapeLayer(for: linePath1.cgPath,
+        let pairLayer1 = newShapeLayer(for: linePath1.cgPath,
                                             with: lineColor.cgColor,
                                             lineWidth: self.lineWidth)
-        let pairLayer2 = getShapeLayer(for: linePath2.cgPath,
+        let pairLayer2 = newShapeLayer(for: linePath2.cgPath,
                                           with: lineColor.cgColor,
                                           lineWidth: self.lineWidth)
         
@@ -162,7 +159,7 @@ class CanvasView: UIView {
         crossPath.move(to: CGPoint(x: point.x+size, y: point.y-size))
         crossPath.addLine(to: CGPoint(x: point.x-size, y: point.y+size))
         
-        let shapeLayer = getShapeLayer(for: crossPath.cgPath,
+        let shapeLayer = newShapeLayer(for: crossPath.cgPath,
                                        with: color,
                                        lineWidth: CGFloat(15.0))
         shapeLayer.add(getStrokeAnimation(markAnimDuration), forKey: "crossMarking")
@@ -177,7 +174,7 @@ class CanvasView: UIView {
                                       endAngle: (3 * CGFloat.pi)/2,
                                       clockwise: true)
         
-        let shapeLayer = getShapeLayer(for: circlePath.cgPath,
+        let shapeLayer = newShapeLayer(for: circlePath.cgPath,
                                        with: color,
                                        lineWidth: CGFloat(15.0))
         shapeLayer.add(getStrokeAnimation(markAnimDuration), forKey: "cirlceMarking")
@@ -185,7 +182,7 @@ class CanvasView: UIView {
     }
     
     // Return a shape layer with the shape path and styling.
-    private func getShapeLayer(for shapePath: CGPath,
+    private func newShapeLayer(for shapePath: CGPath,
                                  with color: CGColor,
                                  lineWidth: CGFloat) -> CAShapeLayer {
         let shapeLayer = CAShapeLayer()

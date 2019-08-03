@@ -32,6 +32,7 @@ enum Player: String {
 
 class GameViewController: UIViewController {
     @IBOutlet weak var canvas: CanvasView!
+    @IBOutlet weak var activeIndicator: ActiveIndicator!
     
     @IBOutlet weak var exScoreLabel: UILabel!
     @IBOutlet weak var ohScoreLabel: UILabel!
@@ -46,8 +47,9 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = #colorLiteral(red: 0.1882352941, green: 0.1882352941, blue: 0.1882352941, alpha: 1)
-        canvas.backgroundColor = #colorLiteral(red: 0.1882352941, green: 0.1882352941, blue: 0.1882352941, alpha: 1)
+        self.view.backgroundColor = backgroundColor
+        canvas.backgroundColor = backgroundColor
+        activeIndicator.backgroundColor = appBarColor
         
         // Determine the selected mode from the main menu
         switch mode {
@@ -60,6 +62,7 @@ class GameViewController: UIViewController {
         // Initialize tictactoe model
         currentPlayer = Player.EX
         board = Array(repeating: Player.NONE, count: 9)
+        activeIndicator.startingPlayer = currentPlayer
     }
     
     @IBAction func onCanvasTap(_ sender: UITapGestureRecognizer) {
@@ -73,6 +76,7 @@ class GameViewController: UIViewController {
         board = Array(repeating: Player.NONE, count: 9)
         canvas.clear()
         canvas.drawCellLines()
+        activeIndicator.showIndicator(player: currentPlayer)
     }
         
     @IBAction func onPlayAgain(_ sender: UIButton) {
@@ -95,6 +99,7 @@ class GameViewController: UIViewController {
             newGame()
         } else { // Game is not over
             currentPlayer = currentPlayer.opposite()
+            activeIndicator.showIndicator(player: currentPlayer)
         }
     }
     
