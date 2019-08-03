@@ -43,21 +43,11 @@ class GameViewController: UIViewController {
     var exScore:Int = 0
     var ohScore:Int = 0
     
-    @IBOutlet weak var modeLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = backgroundColor
         canvas.backgroundColor = backgroundColor
         activeIndicator.backgroundColor = appBarColor
-        
-        // Determine the selected mode from the main menu
-        switch mode {
-        case .PVP:
-            modeLabel.text = "PVP Selected"
-        case .CPU:
-            modeLabel.text = "CPU Selected"
-        }
         
         // Initialize tictactoe model
         currentPlayer = Player.EX
