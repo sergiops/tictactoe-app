@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0342D022F6A0CC00EF2EFF /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0342CF22F6A0CC00EF2EFF /* GameButton.swift */; };
 		8A420FEA22F56ED30089B1F1 /* ActiveIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420FE922F56ED30089B1F1 /* ActiveIndicator.swift */; };
 		8A420FEC22F56F900089B1F1 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420FEB22F56F900089B1F1 /* colors.swift */; };
 		8A61949622E418D300E1F61D /* logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A61949522E418D300E1F61D /* logic.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A0342CF22F6A0CC00EF2EFF /* GameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
 		8A420FE922F56ED30089B1F1 /* ActiveIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveIndicator.swift; sourceTree = "<group>"; };
 		8A420FEB22F56F900089B1F1 /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		8A61949522E418D300E1F61D /* logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logic.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				8AB8002D22EEE1CC007383A0 /* CanvasView.swift */,
 				8A420FE922F56ED30089B1F1 /* ActiveIndicator.swift */,
 				8A420FEB22F56F900089B1F1 /* colors.swift */,
+				8A0342CF22F6A0CC00EF2EFF /* GameButton.swift */,
 			);
 			path = tictactoe;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A61949622E418D300E1F61D /* logic.swift in Sources */,
+				8A0342D022F6A0CC00EF2EFF /* GameButton.swift in Sources */,
 				8AD26C8922E18A49008092B1 /* GameViewController.swift in Sources */,
 				8A420FEC22F56F900089B1F1 /* colors.swift in Sources */,
 				8AB8002E22EEE1CC007383A0 /* CanvasView.swift in Sources */,
