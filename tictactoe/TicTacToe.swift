@@ -43,16 +43,17 @@ class TicTacToe {
         self.currentPlayer = firstPlayer
     }
     
-    public func isMoveValid(cell: Int) -> Bool {
+    public func isMoveValid(_ cell: Int) -> Bool {
         return board[cell] == Player.NONE
     }
     
-    public func commitMove(cell: Int) {
+    public func commitMove(_ cell: Int) {
         board[cell] = currentPlayer
         determineGameOutcome()
     }
     
     public func restartGame() {
+        isGameover = false
         currentPlayer = Player.CROSS
         board = Array(repeating: Player.NONE, count: 9)
     }
