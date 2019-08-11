@@ -27,7 +27,7 @@ class ActiveIndicator: UIView {
     public func showIndicator(player: Player) {
         self.layer.sublayers?.removeAll()
         var p0, p1: CGPoint!
-        if player == Player.EX {
+        if player == Player.CROSS {
             p0 = CGPoint(x: 0, y: 0)
             p1 = CGPoint(x: indicatorWidth, y: 0)
             addIndicatorLayer(start: p0, end: p1, color: blueColor.cgColor)

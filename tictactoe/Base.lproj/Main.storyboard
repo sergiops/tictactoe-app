@@ -94,7 +94,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bj-0l-bTr">
-                                <rect key="frame" x="0.0" y="605" width="414" height="291"/>
+                                <rect key="frame" x="0.0" y="630" width="414" height="266"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="n1Q-RW-i3l">
                                         <rect key="frame" x="25" y="40" width="364" height="60"/>
@@ -196,7 +196,7 @@
                             <constraint firstItem="6bj-0l-bTr" firstAttribute="centerX" secondItem="bIs-FW-CWX" secondAttribute="centerX" id="5XC-uD-Vlc"/>
                             <constraint firstItem="6bj-0l-bTr" firstAttribute="leading" secondItem="bIs-FW-CWX" secondAttribute="leading" id="Nfz-9b-enz"/>
                             <constraint firstItem="zwO-5H-9E2" firstAttribute="centerY" secondItem="bIs-FW-CWX" secondAttribute="centerY" constant="-75" id="Z4s-T2-XqG"/>
-                            <constraint firstItem="6bj-0l-bTr" firstAttribute="top" secondItem="zwO-5H-9E2" secondAttribute="bottom" constant="50" id="Ztg-B8-MBa"/>
+                            <constraint firstItem="6bj-0l-bTr" firstAttribute="top" secondItem="zwO-5H-9E2" secondAttribute="bottom" constant="75" id="Ztg-B8-MBa"/>
                             <constraint firstItem="zwO-5H-9E2" firstAttribute="centerX" secondItem="bIs-FW-CWX" secondAttribute="centerX" id="lZj-vp-LGn"/>
                             <constraint firstItem="zwO-5H-9E2" firstAttribute="leading" secondItem="Aif-3I-bSI" secondAttribute="leading" constant="25" id="mph-8q-Cat"/>
                             <constraint firstAttribute="trailing" secondItem="6bj-0l-bTr" secondAttribute="trailing" id="mq7-mg-gXD"/>
@@ -208,8 +208,8 @@
                     <connections>
                         <outlet property="activeIndicator" destination="mbX-7R-h78" id="G9B-YB-k5L"/>
                         <outlet property="canvas" destination="zwO-5H-9E2" id="vQi-jF-x9a"/>
-                        <outlet property="exScoreLabel" destination="T6A-Vg-tww" id="TLL-Ly-isE"/>
-                        <outlet property="ohScoreLabel" destination="bRA-fH-nI1" id="Yj5-5I-bO8"/>
+                        <outlet property="circleScoreLabel" destination="bRA-fH-nI1" id="2Dz-ey-DUU"/>
+                        <outlet property="crossScoreLabel" destination="T6A-Vg-tww" id="KuZ-eM-Klc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzU-G3-vlE" userLabel="First Responder" sceneMemberID="firstResponder"/>

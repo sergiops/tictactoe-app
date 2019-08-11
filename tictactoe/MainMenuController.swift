@@ -20,7 +20,7 @@ class MainMenuController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let game = segue.destination as? GameViewController
-        game?.mode = gameModeSelected
+        game?.selectedMode = gameModeSelected
     }
     
     @IBAction func pvpSelected(_ sender: Any) {
