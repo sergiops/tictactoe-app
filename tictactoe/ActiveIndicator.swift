@@ -12,7 +12,7 @@ class ActiveIndicator: UIView {
 
     var height: CGFloat!
     var width: CGFloat!
-    var indicatorWidth: CGFloat = 36.0
+    var indicatorWidth: CGFloat = 32.0
     var startingPlayer: Player!
     
     // Only override draw() if you perform custom drawing.

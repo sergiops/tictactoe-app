@@ -10,7 +10,7 @@
 		8A0342D022F6A0CC00EF2EFF /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0342CF22F6A0CC00EF2EFF /* GameButton.swift */; };
 		8A420FEA22F56ED30089B1F1 /* ActiveIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420FE922F56ED30089B1F1 /* ActiveIndicator.swift */; };
 		8A420FEC22F56F900089B1F1 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420FEB22F56F900089B1F1 /* colors.swift */; };
-		8A61949622E418D300E1F61D /* logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A61949522E418D300E1F61D /* logic.swift */; };
+		8A4E8BCC22FFB19C00FE30D5 /* TicTacToe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E8BCB22FFB19C00FE30D5 /* TicTacToe.swift */; };
 		8A83702722DE6218004DA0B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83702622DE6218004DA0B2 /* AppDelegate.swift */; };
 		8A83702C22DE6218004DA0B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A83702A22DE6218004DA0B2 /* Main.storyboard */; };
 		8A83702E22DE6219004DA0B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A83702D22DE6219004DA0B2 /* Assets.xcassets */; };
@@ -24,7 +24,7 @@
 		8A0342CF22F6A0CC00EF2EFF /* GameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
 		8A420FE922F56ED30089B1F1 /* ActiveIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveIndicator.swift; sourceTree = "<group>"; };
 		8A420FEB22F56F900089B1F1 /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
-		8A61949522E418D300E1F61D /* logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logic.swift; sourceTree = "<group>"; };
+		8A4E8BCB22FFB19C00FE30D5 /* TicTacToe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToe.swift; sourceTree = "<group>"; };
 		8A83702322DE6218004DA0B2 /* tictactoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tictactoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A83702622DE6218004DA0B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A83702B22DE6218004DA0B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -69,12 +69,12 @@
 				8A83702622DE6218004DA0B2 /* AppDelegate.swift */,
 				8A83702A22DE6218004DA0B2 /* Main.storyboard */,
 				8AD26C8822E18A49008092B1 /* GameViewController.swift */,
-				8A61949522E418D300E1F61D /* logic.swift */,
 				8A83702D22DE6219004DA0B2 /* Assets.xcassets */,
 				8A83702F22DE6219004DA0B2 /* LaunchScreen.storyboard */,
 				8A83703222DE6219004DA0B2 /* Info.plist */,
 				8AB8002B22EEE0C2007383A0 /* MainMenuController.swift */,
 				8AB8002D22EEE1CC007383A0 /* CanvasView.swift */,
+				8A4E8BCB22FFB19C00FE30D5 /* TicTacToe.swift */,
 				8A420FE922F56ED30089B1F1 /* ActiveIndicator.swift */,
 				8A420FEB22F56F900089B1F1 /* colors.swift */,
 				8A0342CF22F6A0CC00EF2EFF /* GameButton.swift */,
@@ -153,7 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A61949622E418D300E1F61D /* logic.swift in Sources */,
+				8A4E8BCC22FFB19C00FE30D5 /* TicTacToe.swift in Sources */,
 				8A0342D022F6A0CC00EF2EFF /* GameButton.swift in Sources */,
 				8AD26C8922E18A49008092B1 /* GameViewController.swift in Sources */,
 				8A420FEC22F56F900089B1F1 /* colors.swift in Sources */,
