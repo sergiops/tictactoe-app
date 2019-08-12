@@ -58,7 +58,6 @@ class GameViewController: UIViewController {
             updateScoreLabels()
             canvas.showGameOverMessage(winner: game.currentPlayer,
                                        cell: lastMove)
-            //newGame()
         } else {
             activeIndicator.showIndicator(player: game.currentPlayer)
         }

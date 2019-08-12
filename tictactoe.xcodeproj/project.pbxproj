@@ -17,6 +17,8 @@
 		8A83703122DE6219004DA0B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A83702F22DE6219004DA0B2 /* LaunchScreen.storyboard */; };
 		8AB8002C22EEE0C2007383A0 /* MainMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8002B22EEE0C2007383A0 /* MainMenuController.swift */; };
 		8AB8002E22EEE1CC007383A0 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8002D22EEE1CC007383A0 /* CanvasView.swift */; };
+		8AC3084F2301422C0049CB39 /* MessageLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC3084E2301422C0049CB39 /* MessageLayer.swift */; };
+		8AC30851230144260049CB39 /* GameBoardLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC30850230144260049CB39 /* GameBoardLayer.swift */; };
 		8AD26C8922E18A49008092B1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD26C8822E18A49008092B1 /* GameViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		8A83703222DE6219004DA0B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AB8002B22EEE0C2007383A0 /* MainMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuController.swift; sourceTree = "<group>"; };
 		8AB8002D22EEE1CC007383A0 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		8AC3084E2301422C0049CB39 /* MessageLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLayer.swift; sourceTree = "<group>"; };
+		8AC30850230144260049CB39 /* GameBoardLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardLayer.swift; sourceTree = "<group>"; };
 		8AD26C8822E18A49008092B1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +78,8 @@
 				8A83703222DE6219004DA0B2 /* Info.plist */,
 				8AB8002B22EEE0C2007383A0 /* MainMenuController.swift */,
 				8AB8002D22EEE1CC007383A0 /* CanvasView.swift */,
+				8AC3084E2301422C0049CB39 /* MessageLayer.swift */,
+				8AC30850230144260049CB39 /* GameBoardLayer.swift */,
 				8A4E8BCB22FFB19C00FE30D5 /* TicTacToe.swift */,
 				8A420FE922F56ED30089B1F1 /* ActiveIndicator.swift */,
 				8A420FEB22F56F900089B1F1 /* colors.swift */,
@@ -157,7 +163,9 @@
 				8A0342D022F6A0CC00EF2EFF /* GameButton.swift in Sources */,
 				8AD26C8922E18A49008092B1 /* GameViewController.swift in Sources */,
 				8A420FEC22F56F900089B1F1 /* colors.swift in Sources */,
+				8AC3084F2301422C0049CB39 /* MessageLayer.swift in Sources */,
 				8AB8002E22EEE1CC007383A0 /* CanvasView.swift in Sources */,
+				8AC30851230144260049CB39 /* GameBoardLayer.swift in Sources */,
 				8A420FEA22F56ED30089B1F1 /* ActiveIndicator.swift in Sources */,
 				8A83702722DE6218004DA0B2 /* AppDelegate.swift in Sources */,
 				8AB8002C22EEE0C2007383A0 /* MainMenuController.swift in Sources */,
