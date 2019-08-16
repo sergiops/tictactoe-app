@@ -39,6 +39,12 @@ class GameBoardLayer: CALayer {
         drawCellLines()
     }
     
+    public func getDifferenceFromCenter(for cell: Int) -> CGPoint {
+        let center = cellCenters[4]
+        let end = cellCenters[cell]
+        return CGPoint(x: center.x-end.x, y: center.y-end.y)
+    }
+    
     // Return a shape layer with player marking drawn at the given cell.
     public func getPlayerMark(for player: Player, at cell: Int) -> CAShapeLayer {
         let point = cellCenters[cell]
@@ -134,7 +140,7 @@ class GameBoardLayer: CALayer {
     
     public func clearWithFadeOut(willRedraw: Bool) {
         CATransaction.begin()
-        let animation = getfadeOutAnimation(fadeDuration)
+        let animation = getfadeOutAnimation(fadeDuration, willRedraw)
         CATransaction.setCompletionBlock(
             {
                 self.sublayers?.removeAll()
@@ -258,13 +264,15 @@ class GameBoardLayer: CALayer {
     }
     
     // Create a fade out animation with some duration and return it.
-    private func getfadeOutAnimation(_ duration: Double) -> CABasicAnimation {
+    private func getfadeOutAnimation(_ duration: Double,
+                                     _ willRedraw: Bool) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "opacity")
         animation.toValue = 0
         animation.duration = duration
         animation.fillMode = CAMediaTimingFillMode.forwards
         animation.isRemovedOnCompletion = false
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
+                
         return animation
     }
 }

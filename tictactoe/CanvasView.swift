@@ -10,9 +10,6 @@ import UIKit
 
 class CanvasView: UIView {
     let lineWidth: CGFloat = 10.0
-    let lineAnimDuration: Double = 0.5
-    let markAnimDuration: Double = 0.3
-    let fadeDuration: Double = 0.2
     
     let boardLayer: GameBoardLayer = GameBoardLayer()
     let gameOverLayer: MessageLayer = MessageLayer()
@@ -46,11 +43,26 @@ class CanvasView: UIView {
         gameOverLayer.clearWithFadeOut()
     }
     
+    // Wait for drawing animation to complete, then transition
+    // to the game over message.
     public func showGameOverMessage(winner: Player, cell: Int) {
         let winnerMark = boardLayer.getPlayerMark(for: winner, at: cell)
+        let newPosition = boardLayer.getDifferenceFromCenter(for: cell)
+        let delay = boardLayer.markAnimDuration
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay,
+                                      execute: {
+            self.transitionToMessage(winner, winnerMark, newPosition)
+        })
+    }
+    
+    private func transitionToMessage(_ winner: Player,
+                                     _ shapelayer: CAShapeLayer,
+                                     _ newPosition: CGPoint) {
         boardLayer.clearWithFadeOut(willRedraw: false)
         gameOverLayer.showGameOverMessage(winner: winner,
-                                          playerMark: winnerMark)
+                                          playerMark: shapelayer,
+                                          moveTo: newPosition)
     }
     
 }

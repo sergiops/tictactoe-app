@@ -10,11 +10,18 @@ import UIKit
 
 class MessageLayer: CALayer {
     let fadeDuration: Double = 0.2
+    let translateDuration: Double = 0.5
 
-    public func showGameOverMessage(winner: Player, playerMark: CAShapeLayer) {
+    public func showGameOverMessage(winner: Player,
+                                    playerMark: CAShapeLayer,
+                                    moveTo point: CGPoint) {
+        
+        let animation = getTranslationAnimation(translateDuration, point)
+        playerMark.add(animation, forKey: "translateCenter")
         self.addSublayer(playerMark)
     }
     
+    // Hide the message from the user's view.
     public func clearWithFadeOut() {
         self.removeAllAnimations()
         
@@ -39,4 +46,17 @@ class MessageLayer: CALayer {
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         return animation
     }
+    
+    private func getTranslationAnimation(_ duration: Double,
+                                         _ moveTo: CGPoint) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.toValue = moveTo
+        animation.duration = duration
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        animation.isRemovedOnCompletion = false
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        animation.beginTime = CACurrentMediaTime() + self.fadeDuration
+        return animation
+    }
+    
 }
