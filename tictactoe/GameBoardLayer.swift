@@ -44,7 +44,7 @@ class GameBoardLayer: CALayer {
         let end = cellCenters[cell]
         return CGPoint(x: center.x-end.x, y: center.y-end.y)
     }
-    
+        
     // Return a shape layer with player marking drawn at the given cell.
     public func getPlayerMark(for player: Player, at cell: Int) -> CAShapeLayer {
         let point = cellCenters[cell]
@@ -138,6 +138,7 @@ class GameBoardLayer: CALayer {
         }
     }
     
+    // Remove all sublayers and add fade out animation.
     public func clearWithFadeOut(willRedraw: Bool) {
         CATransaction.begin()
         let animation = getfadeOutAnimation(fadeDuration, willRedraw)
@@ -214,7 +215,6 @@ class GameBoardLayer: CALayer {
         self.addSublayer(circleLayer)
     }
 
-    // Create CGPath for a circle.
     private func createCirclePath(center: CGPoint, radius: CGFloat) -> CGPath {
         let circlePath = UIBezierPath(arcCenter: center,
                                       radius: radius,
@@ -224,7 +224,6 @@ class GameBoardLayer: CALayer {
         return circlePath.cgPath
     }
 
-    // Create CGPath for a cross.
     private func createCrossPath(center: CGPoint, size: CGFloat) -> CGPath {
         let crossPath = UIBezierPath()
         crossPath.move(to: CGPoint(x: center.x-size, y: center.y-size))
@@ -247,7 +246,6 @@ class GameBoardLayer: CALayer {
         return shapeLayer
     }
 
-    // Add stroke animation to shape layer.
     private func animateLayerWithStroke(layer: CAShapeLayer,
                                         duration: Double) -> CAShapeLayer {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
@@ -263,7 +261,6 @@ class GameBoardLayer: CALayer {
         return layer
     }
     
-    // Create a fade out animation with some duration and return it.
     private func getfadeOutAnimation(_ duration: Double,
                                      _ willRedraw: Bool) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "opacity")

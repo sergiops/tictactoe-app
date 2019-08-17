@@ -12,13 +12,17 @@ class MessageLayer: CALayer {
     let fadeDuration: Double = 0.2
     let translateDuration: Double = 0.5
 
-    public func showGameOverMessage(winner: Player,
-                                    playerMark: CAShapeLayer,
-                                    moveTo point: CGPoint) {
+    public func showGameOverMessage(message: String,
+                                    messageRect: CGRect,
+                                    icon: CAShapeLayer,
+                                    iconOffset: CGPoint) {
         
-        let animation = getTranslationAnimation(translateDuration, point)
-        playerMark.add(animation, forKey: "translateCenter")
-        self.addSublayer(playerMark)
+        let animation = getTranslationAnimation(translateDuration, iconOffset)
+        icon.add(animation, forKey: "translateCenter")
+        
+        let message = createTextLayer(string: message, rect: messageRect)
+        self.addSublayer(icon)
+        self.addSublayer(message)
     }
     
     // Hide the message from the user's view.
@@ -34,6 +38,18 @@ class MessageLayer: CALayer {
         )
         self.add(animation, forKey: "messageLayerFadeOut")
         CATransaction.commit()
+    }
+    
+    private func createTextLayer(string: String, rect: CGRect) -> CATextLayer {
+        let textLayer = CATextLayer()
+        textLayer.frame = rect
+        textLayer.string = string
+        textLayer.font = UIFont.boldSystemFont(ofSize: CGFloat(20.0))
+        textLayer.foregroundColor = UIColor.white.cgColor
+        textLayer.contentsScale = UIScreen.main.scale
+        textLayer.isWrapped = true
+        textLayer.alignmentMode = CATextLayerAlignmentMode.center
+        return textLayer
     }
     
     // Create a fade out animation with some duration and return it.

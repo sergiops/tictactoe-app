@@ -46,23 +46,48 @@ class CanvasView: UIView {
     // Wait for drawing animation to complete, then transition
     // to the game over message.
     public func showGameOverMessage(winner: Player, cell: Int) {
-        let winnerMark = boardLayer.getPlayerMark(for: winner, at: cell)
-        let newPosition = boardLayer.getDifferenceFromCenter(for: cell)
+        let message = getMessageForGameResult(winner)
+        let messageRect = createMessageRect()
+        let icon = boardLayer.getPlayerMark(for: winner, at: cell)
+        let iconOffset = boardLayer.getDifferenceFromCenter(for: cell)
         let delay = boardLayer.markAnimDuration
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delay,
                                       execute: {
-            self.transitionToMessage(winner, winnerMark, newPosition)
+            self.transitionToMessage(message, messageRect, icon, iconOffset)
         })
     }
     
-    private func transitionToMessage(_ winner: Player,
+    // Callback function to display the message layer, and hide the
+    // game layer.
+    private func transitionToMessage(_ msg: String,
+                                     _ rect: CGRect,
                                      _ shapelayer: CAShapeLayer,
-                                     _ newPosition: CGPoint) {
+                                     _ layerOffset: CGPoint) {
         boardLayer.clearWithFadeOut(willRedraw: false)
-        gameOverLayer.showGameOverMessage(winner: winner,
-                                          playerMark: shapelayer,
-                                          moveTo: newPosition)
+        gameOverLayer.showGameOverMessage(message: msg,
+                                          messageRect: rect,
+                                          icon: shapelayer,
+                                          iconOffset: layerOffset)
+    }
+    
+    private func getMessageForGameResult(_ player: Player) -> String {
+        if player == .NONE {
+            return "DRAW"
+        } else {
+            return "WINNER"
+        }
+    }
+    
+    // Return a rect positioned in the lower third of the view.
+    private func createMessageRect() -> CGRect {
+        let height = self.frame.height
+        let width = self.frame.width
+        let rect = CGRect(x: CGFloat(0.0),
+                          y: height - (height/3.0),
+                          width: width,
+                          height: height/3.0)
+        return rect
     }
     
 }
