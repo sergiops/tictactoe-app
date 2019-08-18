@@ -41,7 +41,7 @@ class TicTacToe {
     }
     
     public func isMoveValid(_ cell: Int) -> Bool {
-        return board[cell] == Player.NONE
+        return board[cell] == Player.NONE && isGameover == false
     }
     
     public func commitMove(_ cell: Int) {
