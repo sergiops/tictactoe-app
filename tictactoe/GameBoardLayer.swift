@@ -31,6 +31,9 @@ class GameBoardLayer: CALayer {
     // Setup and draw the tictactoe board for the first time.
     public func draw() {
         let frameSize = self.frame.size
+        print("from GameBoardLayer")
+        print(self.frame.origin)
+        print(self.frame.size)
         self.cellWidth = (frameSize.width/3.0)
         self.cellHeight = (frameSize.height/3.0)
         self.cellOffset = CGFloat(lineWidth/6.0)
@@ -62,7 +65,7 @@ class GameBoardLayer: CALayer {
                                   with: redColor.cgColor,
                                   lineWidth: CGFloat(15.0))
         default:
-            return CAShapeLayer()
+            return createPlayerMarks()
         }
     }
     
@@ -271,5 +274,29 @@ class GameBoardLayer: CALayer {
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
                 
         return animation
+    }
+    
+    private func createPlayerMarks() -> CAShapeLayer {
+        let anchor = cellCenters[4]
+        let spacing = cellWidth * (0.1)
+        let crossCenter = CGPoint(x: anchor.x - cellWidth/3 - spacing, y: anchor.y)
+        let circleCenter = CGPoint(x: anchor.x + cellWidth/3 + spacing, y: anchor.y)
+        
+        let crossPath = createCrossPath(center: crossCenter,
+                                        size: ((cellWidth/2)-(lineWidth*2))/sqrt(2))
+        let crossLayer = addPathToLayer(for: crossPath,
+                              with: blueColor.cgColor,
+                              lineWidth: CGFloat(15.0))
+        
+        let circlePath = createCirclePath(center: circleCenter,
+                                          radius: (cellWidth/2)-(lineWidth*2))
+        let circleLayer = addPathToLayer(for: circlePath,
+                              with: redColor.cgColor,
+                              lineWidth: CGFloat(15.0))
+        
+        let layerGroup = CAShapeLayer()
+        layerGroup.addSublayer(crossLayer)
+        layerGroup.addSublayer(circleLayer)
+        return layerGroup
     }
 }

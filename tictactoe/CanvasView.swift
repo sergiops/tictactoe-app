@@ -54,21 +54,28 @@ class CanvasView: UIView {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delay,
                                       execute: {
-            self.transitionToMessage(message, messageRect, icon, iconOffset)
+            self.transitionToMessage(winner, message, messageRect, icon, iconOffset)
         })
     }
     
     // Callback function to display the message layer, and hide the
     // game layer.
-    private func transitionToMessage(_ msg: String,
+    private func transitionToMessage(_ winner: Player,
+                                     _ msg: String,
                                      _ rect: CGRect,
                                      _ shapelayer: CAShapeLayer,
                                      _ layerOffset: CGPoint) {
         boardLayer.clearWithFadeOut(willRedraw: false)
-        gameOverLayer.showGameOverMessage(message: msg,
-                                          messageRect: rect,
-                                          icon: shapelayer,
-                                          iconOffset: layerOffset)
+        if winner == .NONE {
+            gameOverLayer.moveInBottom(message: msg,
+                                       messageRect: rect,
+                                       icon: shapelayer)
+        } else {
+            gameOverLayer.showGameOverMessage(message: msg,
+                                              messageRect: rect,
+                                              icon: shapelayer,
+                                              iconOffset: layerOffset)
+        }
     }
     
     private func getMessageForGameResult(_ player: Player) -> String {
@@ -79,11 +86,11 @@ class CanvasView: UIView {
         }
     }
     
-    // Return a rect positioned in the lower third of the view.
+    // Return a CGRect positioned in the lower third of the view.
     private func createMessageRect() -> CGRect {
         let height = self.frame.height
         let width = self.frame.width
-        let rect = CGRect(x: CGFloat(0.0),
+        let rect = CGRect(x: 0.0,
                           y: height - (height/3.0),
                           width: width,
                           height: height/3.0)
